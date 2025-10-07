@@ -2700,7 +2700,7 @@ span {
   animation: stickyNavbar 0.5s linear;
   background: var(--template-bg);
   border-bottom: 1px solid var(--senary-color);
-  padding-block: 40px !important;
+  padding-block: 10px !important;
 }
 
 @keyframes stickyNavbar {
