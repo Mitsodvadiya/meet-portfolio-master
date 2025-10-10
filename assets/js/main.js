@@ -1910,5 +1910,14 @@
 		$(".ltr-no").on("click", function () {
 			$(".page-wrapper").addClass("rtl");
 		});
+
+		// Project click functionality for dynamic routing
+		$(".project-link").on("click", function (e) {
+			e.preventDefault();
+			const slug = $(this).data('slug');
+			if (slug) {
+				window.location.href = `project-details.html?slug=${slug}`;
+			}
+		});
 	});
 })(jQuery);

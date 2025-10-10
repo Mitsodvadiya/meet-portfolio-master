@@ -102,7 +102,7 @@
                                     <div class="navbar__menu d-none d-xl-block">
                                         <ul class="navbar__list">
                                             <li class="navbar__item nav-fade">
-                                                <a href="#heroSec">Home</a>
+                                                <a href="index.html">Home</a>
                                             </li>
                                             <li class="navbar__item nav-fade">
                                                 <a href="#aboutSec">About</a>
@@ -534,6 +534,205 @@
     <!-- ==== / js dependencies end ==== -->
     <!-- main js -->
     <script src="assets/js/main.js"></script>
+
+    <!-- Project Details Dynamic Content Script -->
+    <script>
+        // Comprehensive project data object
+        const PROJECTS = {
+            "mobile-app-builder": {
+                title: "Mobile App Builder",
+                category: "Frontend Development",
+                bannerImage: "assets/images/portfolio/builder-banner.webp",
+                overview: "Crafting a seamless mobile-app experience on Shopify. In this project, I lead the entire frontend development using React, transforming the UI/UX blueprint into a fully functional, responsive application. The goal was to build a no-code mobile app builder for Shopify merchants — allowing non-developers to generate branded mobile apps with AI-powered features and deep Shopify integration (product catalog, user accounts, push notifications, analytics).",
+                features: [
+                    "Design & Theme Customization: Dynamic theming with typography, colors, icons, buttons, layouts, enabling brand-aligned styling (header, side/bottom navigation, etc.).",
+                    "Widget System: 15+ pre-made widgets plus support for custom HTML/CSS/JS to allow flexible content composition.",
+                    "Push Notifications: AI-suggested messaging, segmentation, scheduling, automated triggers.",
+                    "Analytics Dashboard: Real-time metrics like app revenue, sessions, retention, new vs returning users, order sources, average order value, etc."
+                ],
+                responsibilities: [
+                    "Translating UI/UX mockups into reusable, modular React components",
+                    "State management (e.g. useContext, Redux or similar) to handle app data (user, products, settings)",
+                    "API integration: consuming backend endpoints for product, user, analytics, notifications",
+                    "Responsive & cross-platform performance optimization"
+                ],
+                technicalChallenges: "Dynamic Layout Rendering: Widgets and screens are user-configurable, so I built a layout engine to render components dynamically based on configuration. Efficient State Sync: Kept client and server state in sync (e.g. product updates, app settings) with debouncing, optimistic updates, and error recovery. Performance under scale: Optimized rendering using React memoization, code splitting, lazy loading, and virtualization where necessary. Localization & RTL Support: Ensured bi-directional layout support, translated strings dynamically, handled locale switching without full reload. Deep Linking & Routing: Configured React Router (or equivalent) to support direct links to internal views, with fallback logic if the app is not installed.",
+                impact: "Successfully shipped a fully functional frontend app that matched design specs and passed QA. Enabled users to launch a branded mobile app in 1 day with minimal setup. Delivered a smooth, performant UX across devices (iOS, Android). Improved engagement and retention potential through integrated notifications and analytics. Provided a modular, extensible frontend codebase ready for future features, scaling, and maintenance.",
+                images: [
+                    "assets/images/portfolio/builder2.webp",
+                    "assets/images/portfolio/builder3.webp",
+                    "assets/images/portfolio/builder4.webp"
+                ]
+            },
+            "back-in-stock": {
+                title: "Back-In-Stock Notifications",
+                category: "Frontend & Extensions",
+                bannerImage: "assets/images/portfolio/project4.webp",
+                overview: "Developed a comprehensive Shopify app that helps merchants recover lost sales by automatically notifying customers when out-of-stock products become available again. This project involved creating both a merchant-facing dashboard and customer-facing notification system with advanced features like email automation, SMS integration, and inventory tracking.",
+                features: [
+                    "Smart Inventory Tracking: Real-time monitoring of product stock levels with automatic detection of restock events",
+                    "Multi-Channel Notifications: Email, SMS, and push notification support with customizable templates",
+                    "Customer Segmentation: Advanced filtering based on customer behavior, location, and purchase history",
+                    "Analytics Dashboard: Comprehensive reporting on notification performance, conversion rates, and revenue recovery"
+                ],
+                responsibilities: [
+                    "Built responsive React dashboard for merchants to manage notifications and view analytics",
+                    "Implemented real-time inventory monitoring system with WebSocket connections",
+                    "Developed email template system with dynamic content and personalization",
+                    "Created customer-facing notification preferences and subscription management"
+                ],
+                technicalChallenges: "Real-time Inventory Sync: Implemented efficient polling and WebSocket connections to track inventory changes across multiple products and variants. Email Delivery Optimization: Built robust email queuing system with retry logic and delivery tracking. Performance at Scale: Optimized database queries and implemented caching strategies to handle thousands of products and customers. Cross-Platform Compatibility: Ensured consistent functionality across different Shopify themes and mobile devices.",
+                impact: "Helped merchants recover an average of 15-25% of lost sales from out-of-stock products. Reduced manual work by 80% through automated notification system. Improved customer satisfaction with timely restock notifications. Increased merchant retention through valuable sales recovery features.",
+                images: [
+                    "assets/images/portfolio/project4.webp",
+                    "assets/images/portfolio/project5.webp",
+                    "assets/images/portfolio/project6.webp",
+                    "assets/images/portfolio/project7.webp"
+                ]
+            },
+            "low-in-stock": {
+                title: "Low-In-Stock Alerts",
+                category: "Frontend & Extensions",
+                bannerImage: "assets/images/portfolio/project5.webp",
+                overview: "Created an intelligent inventory management system that proactively alerts merchants when products are running low on stock. This Shopify app helps prevent stockouts by providing early warnings, automated reordering suggestions, and comprehensive inventory analytics to optimize stock levels and reduce lost sales.",
+                features: [
+                    "Intelligent Stock Monitoring: AI-powered predictions based on sales velocity and seasonal trends",
+                    "Automated Reorder Points: Dynamic threshold calculations based on historical data and lead times",
+                    "Supplier Integration: Direct connections with suppliers for automated purchase order generation",
+                    "Inventory Optimization: Recommendations for optimal stock levels to minimize carrying costs while preventing stockouts"
+                ],
+                responsibilities: [
+                    "Developed React-based dashboard with real-time inventory visualization and alerts",
+                    "Built machine learning algorithms for demand forecasting and reorder point optimization",
+                    "Implemented supplier API integrations for automated procurement workflows",
+                    "Created comprehensive reporting system with actionable insights and recommendations"
+                ],
+                technicalChallenges: "Demand Forecasting: Implemented machine learning models to predict future demand based on historical sales, seasonality, and external factors. Real-time Data Processing: Built efficient data pipeline to process large volumes of inventory and sales data in real-time. API Integration Complexity: Managed multiple supplier APIs with different authentication methods and data formats. Scalable Architecture: Designed system to handle thousands of products and suppliers with high availability requirements.",
+                impact: "Reduced stockouts by 60% through proactive inventory management. Decreased excess inventory by 25% through optimized reorder points. Improved cash flow by reducing carrying costs and preventing overstock situations. Enhanced supplier relationships through automated procurement processes.",
+                images: [
+                    "assets/images/portfolio/project5.webp",
+                    "assets/images/portfolio/project8.webp",
+                    "assets/images/portfolio/project9.webp"
+                ]
+            },
+            "rubix-crm": {
+                title: "Rubix CRM",
+                category: "Fullstack Development",
+                bannerImage: "assets/images/portfolio/project6.png",
+                overview: "Developed a comprehensive Customer Relationship Management system designed specifically for small to medium businesses. Rubix CRM provides a complete solution for managing customer interactions, sales pipelines, marketing campaigns, and business analytics in a single, intuitive platform.",
+                features: [
+                    "Contact Management: Centralized customer database with advanced search, segmentation, and relationship mapping",
+                    "Sales Pipeline: Visual sales funnel with customizable stages, deal tracking, and performance analytics",
+                    "Marketing Automation: Email campaigns, lead nurturing sequences, and customer journey mapping",
+                    "Business Intelligence: Advanced reporting and analytics with customizable dashboards and KPI tracking"
+                ],
+                responsibilities: [
+                    "Architected full-stack application using React frontend and Node.js backend with PostgreSQL database",
+                    "Implemented user authentication and role-based access control system",
+                    "Built real-time collaboration features for team-based customer management",
+                    "Developed RESTful APIs and GraphQL endpoints for flexible data access"
+                ],
+                technicalChallenges: "Data Security: Implemented robust security measures including encryption, secure authentication, and compliance with data protection regulations. Real-time Collaboration: Built WebSocket-based system for real-time updates and team collaboration features. Scalable Architecture: Designed microservices architecture to handle growing user base and data volume. Integration Complexity: Created flexible API system to integrate with third-party tools like email providers, calendar systems, and accounting software.",
+                impact: "Increased sales team productivity by 40% through streamlined customer management. Improved customer retention by 30% through better relationship tracking and follow-up. Reduced manual data entry by 70% through automation and integrations. Enhanced decision-making through comprehensive analytics and reporting capabilities.",
+                images: [
+                    "assets/images/portfolio/project6.png",
+                    "assets/images/portfolio/project10.png",
+                    "assets/images/portfolio/project11.png"
+                ]
+            }
+        };
+
+        // Function to get slug from URL
+        function getSlugFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('slug') || 'mobile-app-builder'; // Default to mobile-app-builder
+        }
+
+        // Function to populate project details
+        function populateProjectDetails(project) {
+            // Update page title
+            document.title = `${project.title} | Project Details`;
+
+            // Update banner title
+            const bannerTitle = document.querySelector('.banner__content h2');
+            if (bannerTitle) {
+                bannerTitle.textContent = project.title;
+            }
+
+            // Update main banner image
+            const bannerImg = document.querySelector('.details__group .thumb img');
+            if (bannerImg) {
+                bannerImg.src = project.bannerImage;
+                bannerImg.alt = project.title;
+            }
+
+            // Update overview section
+            const overviewContent = document.querySelector('.project-content p.primary-text');
+            if (overviewContent) {
+                overviewContent.textContent = project.overview;
+            }
+
+            // Update features list
+            const featuresList = document.querySelector('.list-grp');
+            if (featuresList && project.features) {
+                featuresList.innerHTML = '';
+                project.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.className = 'primary-text';
+                    li.textContent = feature;
+                    featuresList.appendChild(li);
+                });
+            }
+
+            // Update responsibilities list
+            const responsibilitiesList = document.querySelector('.mt-30');
+            if (responsibilitiesList && project.responsibilities) {
+                responsibilitiesList.innerHTML = '';
+                project.responsibilities.forEach(responsibility => {
+                    const li = document.createElement('li');
+                    li.className = 'primary-text';
+                    li.innerHTML = `<i class="ph ph-check"></i>${responsibility}`;
+                    responsibilitiesList.appendChild(li);
+                });
+            }
+
+            // Update technical challenges
+            const technicalChallenges = document.querySelector('.details__group.mt-60 .project-content p.primary-text');
+            if (technicalChallenges && project.technicalChallenges) {
+                technicalChallenges.innerHTML = project.technicalChallenges.replace(/\n/g, '<br />');
+            }
+
+            // Update impact section
+            const impactContent = document.querySelector('.col-12.col-lg-8 .project-content p.primary-text');
+            if (impactContent && project.impact) {
+                impactContent.innerHTML = project.impact.replace(/\n/g, '<br />');
+            }
+
+            // Update additional images
+            const additionalImages = document.querySelectorAll('.details__group .thumb img');
+            if (additionalImages && project.images) {
+                project.images.forEach((imageSrc, index) => {
+                    if (additionalImages[index + 1]) { // Skip the first image (banner)
+                        additionalImages[index + 1].src = imageSrc;
+                        additionalImages[index + 1].alt = project.title;
+                    }
+                });
+            }
+        }
+
+        // Initialize project details on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            const slug = getSlugFromUrl();
+            const project = PROJECTS[slug];
+
+            if (project) {
+                populateProjectDetails(project);
+            } else {
+                // Fallback to mobile-app-builder if project not found
+                populateProjectDetails(PROJECTS['mobile-app-builder']);
+            }
+        });
+    </script>
 </body>
 
 </html>
