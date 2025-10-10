@@ -1,0 +1,33 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://meetsodvadiya.com/sitemap.xml
+
+# Allow all search engines to crawl the site
+Allow: /assets/
+Allow: /index.html
+Allow: /project.html
+Allow: /project-details.html
+
+# Disallow any admin or private directories (if any exist in future)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.log$
+Disallow: /*.tmp$
+
+# Crawl delay (optional - helps prevent server overload)
+Crawl-delay: 1
+
+# Specific instructions for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
