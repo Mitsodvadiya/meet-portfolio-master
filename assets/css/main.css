@@ -2743,6 +2743,7 @@ span {
 
 .mobile-menu .logo img {
   max-width: 150px;
+  max-height: 70px;
 }
 
 .mobile-menu .close-mobile-menu {

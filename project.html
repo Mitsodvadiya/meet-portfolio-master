@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Project</title>
+</head>
+
+<body>
+    <div class="wrap" id="product-root">
+        <div class="card">
+            <div class="media">
+                <div class="main-photo" id="mainPhoto">
+                    <img src="https://via.placeholder.com/800x600?text=Loading" alt="product" id="mainImage">
+                </div>
+                <div class="thumbs" id="thumbs">
+                    <!-- thumbnails are present in markup to keep layout stable; JS will populate -->
+                    <div class="thumb"><img src="https://via.placeholder.com/160x120?text=1" data-index="0" alt="">
+                    </div>
+                    <div class="thumb"><img src="https://via.placeholder.com/160x120?text=2" data-index="1" alt="">
+                    </div>
+                    <div class="thumb"><img src="https://via.placeholder.com/160x120?text=3" data-index="2" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div style="height:18px"></div>
+
+            <div class="desc" id="description">
+                <!-- short description goes here -->
+            </div>
+
+            <div style="height:12px"></div>
+
+            <div class="features" id="features">
+                <!-- feature chips -->
+            </div>
+
+        </div>
+
+        <aside class="card info" id="infoCard">
+            <div>
+                <div class="title-row">
+                    <div>
+                        <div class="meta" id="brand">Brand</div>
+                        <h1 id="title">Product Title</h1>
+                    </div>
+                    <div style="text-align:right">
+                        <div class="badge" id="availability">In stock</div>
+                    </div>
+                </div>
+
+                <div class="price-row">
+                    <div class="price" id="price">$0</div>
+                    <div class="rating" id="rating">★ 0.0</div>
+                </div>
+            </div>
+
+            <div class="specs" id="specs">
+                <!-- spec items -->
+            </div>
+
+            <div class="cta">
+                <button class="btn-primary" id="buyBtn">Buy now</button>
+                <button class="btn-outline" id="wishlistBtn">Add to wishlist</button>
+                <div style="margin-left:auto" class="meta">SKU: <span id="sku">—</span></div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // product dataset keyed by slug
+        const PRODUCTS = {
+            "alpha-watch": {
+                slug: "alpha-watch",
+                brand: "Aurora Labs",
+                title: "Alpha Chrono Smartwatch",
+                price: 249,
+                currency: "USD",
+                rating: 4.7,
+                availability: "In stock",
+                sku: "ALPHA-CH-001",
+                description: "A refined smartwatch with long battery life, precise sensors and a curved AMOLED display. Built for every day and crafted for style.",
+                features: ["AMOLED 1.78\"", "Heart rate + SpO2", "7-day battery", "Water resistant 50m", "Wireless charging"],
+                specs: {
+                    "Display": "1.78\" AMOLED, 368x448",
+                    "Battery": "420 mAh (~7 days)",
+                    "Sensors": "HR, SpO2, Accelerometer, Gyro",
+                    "Connectivity": "Bluetooth 5.2, BLE",
+                    "Materials": "Aluminum frame, Sapphire glass"
+                },
+                images: [
+                    "https://via.placeholder.com/1200x900?text=Alpha+Main",
+                    "https://via.placeholder.com/600x450?text=Alpha+Side",
+                    "https://via.placeholder.com/600x450?text=Alpha+Band"
+                ]
+            },
+
+            "pro-headphones": {
+                slug: "pro-headphones",
+                brand: "North Studio",
+                title: "ProBeat Wireless Headphones",
+                price: 179,
+                currency: "USD",
+                rating: 4.5,
+                availability: "Only a few left",
+                sku: "NST-PRO-HP",
+                description: "Studio-grade wireless headphones with adaptive noise cancelling and ultra-low latency. Comfortable over-ear fit for long sessions.",
+                features: ["ANC", "40h battery", "Low latency", "Quick charge", "Comfort-fit"],
+                specs: {
+                    "Drivers": "40mm Dynamic",
+                    "Battery": "40 hours (ANC off)",
+                    "Charging": "USB-C, 15 min -> 3 hr",
+                    "Weight": "260 g",
+                    "Range": "10 m / 33 ft"
+                },
+                images: [
+                    "https://via.placeholder.com/1200x900?text=Pro+Main",
+                    "https://via.placeholder.com/600x450?text=Pro+Side",
+                    "https://via.placeholder.com/600x450?text=Pro+Case"
+                ]
+            }
+        };
+
+        // get slug from URL: support ?slug= or last path segment /.../slug or hash #slug
+        function getSlugFromUrl() {
+            const url = new URL(window.location.href);
+            if (url.searchParams.has('slug')) return url.searchParams.get('slug');
+            if (location.hash && location.hash.length > 1) return location.hash.slice(1);
+            const path = location.pathname.split('/').filter(Boolean);
+            // if the page file is product.html and the slug is present as next segment, handle both: e.g. /product/alpha-watch or /alpha-watch
+            // assume last segment is slug unless it ends with .html
+            const last = path[path.length - 1] || '';
+            if (last.endsWith('.html') && path.length > 1) return path[path.length - 2];
+            if (last && !last.includes('.html')) return last;
+            return null;
+        }
+
+        function formatPrice(n, currency) {
+            return (currency || 'USD') === 'USD' ? `$${n}` : `${n} ${currency}`;
+        }
+
+        function populateProduct(prod) {
+            // main fields
+            document.getElementById('brand').textContent = prod.brand || '';
+            document.getElementById('title').textContent = prod.title || 'Untitled';
+            document.getElementById('price').textContent = formatPrice(prod.price, prod.currency);
+            document.getElementById('rating').textContent = `★ ${prod.rating?.toFixed(1) || '0.0'}`;
+            document.getElementById('availability').textContent = prod.availability || '';
+            document.getElementById('sku').textContent = prod.sku || '—';
+            document.getElementById('description').textContent = prod.description || '';
+
+            // features
+            const fwrap = document.getElementById('features');
+            fwrap.innerHTML = '';
+            (prod.features || []).forEach(f => {
+                const d = document.createElement('div');
+                d.className = 'chip';
+                d.textContent = f;
+                fwrap.appendChild(d);
+            });
+
+            // specs: two-column cards
+            const specs = document.getElementById('specs');
+            specs.innerHTML = '';
+            if (prod.specs) {
+                Object.entries(prod.specs).forEach(([k, v]) => {
+                    const s = document.createElement('div');
+                    s.className = 'spec-item';
+                    s.innerHTML = `<strong style="color:#e9f5ff">${k}</strong><span style="color:var(--muted)">${v}</span>`;
+                    specs.appendChild(s);
+                });
+            }
+
+            // images
+            const mainImage = document.getElementById('mainImage');
+            const thumbs = document.getElementById('thumbs');
+            const imgs = prod.images && prod.images.length ? prod.images : ['https://via.placeholder.com/1200x900?text=No+Image'];
+            mainImage.src = imgs[0];
+            // build thumbnails but keep them in DOM structure to maintain layout
+            thumbs.innerHTML = '';
+            imgs.forEach((src, i) => {
+                const t = document.createElement('div');
+                t.className = 'thumb';
+                t.innerHTML = `<img src="${src}" data-index="${i}" alt="thumb-${i}">`;
+                t.addEventListener('click', () => {
+                    mainImage.src = src;
+                });
+                thumbs.appendChild(t);
+            });
+
+            // Buy button action (simple demo)
+            document.getElementById('buyBtn').onclick = () => {
+                alert(`Added "${prod.title}" to cart — ${formatPrice(prod.price, prod.currency)}`);
+            };
+            document.getElementById('wishlistBtn').onclick = () => {
+                alert(`Added "${prod.title}" to wishlist`);
+            };
+        }
+
+        function showNotFound(slug) {
+            const root = document.getElementById('product-root');
+            root.innerHTML = `
+                <div class="card not-found">
+                    Product not found for "<strong>${slug}</strong>".<br>
+                    Use ?slug=alpha-watch or ?slug=pro-headphones
+                </div>
+            `;
+        }
+
+        (function init() {
+            const slug = getSlugFromUrl() || 'alpha-watch';
+            const product = PRODUCTS[slug];
+            if (!product) {
+                showNotFound(slug);
+                return;
+            }
+            populateProduct(product);
+        })();
+    </script>
+</body>
+
+</html>
+</div>

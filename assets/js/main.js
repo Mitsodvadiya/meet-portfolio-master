@@ -1891,13 +1891,13 @@
 			if ($(this).is(":checked")) {
 				// Light mode
 				$(".page-wrapper").addClass("light-mode");
-				$(".logo-ch").attr("src", "assets/images/logo.gif");
+				$(".logo-ch").attr("src", "assets/images/logo.png");
 				$(".pulse-text").hide();
 				$(".pulse-text-light").show();
 			} else {
 				// Dark mode
 				$(".page-wrapper").removeClass("light-mode");
-				$(".logo-ch").attr("src", "assets/images/logo.gif");
+				$(".logo-ch").attr("src", "assets/images/logo.png");
 				$(".pulse-text-light").hide();
 				$(".pulse-text").show();
 			}
